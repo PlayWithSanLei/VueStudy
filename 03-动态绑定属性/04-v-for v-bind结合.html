@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .active {
+        color: black;
+    }
+    .add2 {
+        color: #ff0000;
+    }
+</style>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="(m, index) in movies" :class="{'add2':index==dynamic}" @click="click(index)">{{m}}</li>
+    </ul>
+</div>
+<script src="../src/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            movies: ['海王', '海尔兄弟', '火影忍者', '进击的巨人'],
+            dynamic: -1,
+            cla: 'add2'
+        },
+        methods: {
+            click: function (index) {
+                this.dynamic = index;
+            }
+        }
+    })
+</script>
+</body>
+</html>

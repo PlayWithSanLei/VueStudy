@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello</title>
+</head>
+<body>
+<div id="app">
+    <h1>{{message}}</h1>
+    <li v-for="item in movies">{{item}}</li>
+</div>
+
+<script src="../src/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '我是张昊',
+            movies: ['Iron Man', 'Star Wars', 'Spider Man', 'Matrix']
+        }
+    })
+</script>
+</body>
+</html>
