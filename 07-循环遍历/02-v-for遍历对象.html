@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+
+    <ul>
+        <li v-for="i in info">{{i}}</li>
+    </ul>
+    <ul>
+        <li v-for="(value, key) in info">{{key}}: {{value}}</li>
+    </ul>
+
+</div>
+<script src="../src/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            info: {
+                message: 'hello',
+                name: 'zhanghao',
+                age: 20,
+                height: 171
+            }
+        }
+    })
+</script>
+</body>
+</html>
