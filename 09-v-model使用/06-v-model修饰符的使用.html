@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model.lazy="message">
+<!--    .lazy 失去焦点或者回车时双向绑定-->
+    <h2>{{message}}</h2>
+
+    <input type="number" v-model.number="age">
+    <h2>{{age}}   {{typeof age}}</h2>
+
+    <input type="text" v-model.trim="name">
+    <h2>{{name}}</h2>
+</div>
+<script src="../src/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '你好',
+            age: 0,
+            name: ''
+        }
+    })
+</script>
+</body>
+</html>
