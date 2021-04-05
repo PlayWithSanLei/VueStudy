@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <cpn></cpn>
+</div>
+
+<!--<script type="text/x-template" id="cpn">-->
+<!--    <div>-->
+<!--        <h2>title</h2>-->
+<!--        <p>asdasdasada</p>-->
+<!--    </div>-->
+<!--</script>-->
+
+<template id="cpn">
+    <div>
+        <h2>title</h2>
+        <p>asdasdasada</p>
+        <p>{{title}}</p>
+    </div>
+</template>
+<script src="../src/vue.js"></script>
+<script>
+
+    Vue.component('cpn',{
+        template: '#cpn',
+        data () {  // 组件自己的data
+            return {
+                title:'abc'
+            }
+        }
+    })
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '你好'
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<script src="../src/vue.js"></script>
+<script>
+    // const cpn1 = Vue.extend()
+
+    Vue.component('cpn1', {
+        template: `
+            <div>
+            <h2>title</h2>
+            <p>comment</p>
+</div>
+        `
+    })
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '你好'
+        }
+    })
+</script>
+</body>
+</html>

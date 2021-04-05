@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <cpn @increment="changetotal" @decrement="changetotal"></cpn>
+    <h2>{{count}}</h2>
+</div>
+<template id="cpn">
+    <div>
+        <button @click="incr">+</button>
+        <button @click="decr">-</button>
+    </div>
+</template>
+
+<script src="../src/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '你好',
+            count: 0
+        },
+        methods: {
+            changetotal(count) {
+                this.count = count;  // 接受子组件的参数并赋值
+            }
+        },
+        // 子组件
+        components: {
+            // 定义
+            'cpn': {
+                template: '#cpn',
+                data() {
+                    return {
+                        counter:0  // 子组件内部数据
+                    }
+                },
+                methods: {
+                    incr() {  // 子组件内部方法
+                        this.counter++;
+                        this.$emit('increment', this.counter);  // 子组件传数据给父组件
+                    },
+                    decr() {
+                        this.counter--;
+                        this.$emit('decrement', this.counter);  // 子组件传数据给父组件
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

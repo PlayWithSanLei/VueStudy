@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--fu-->
+<div id="app">
+    <cpn @item-click="cpnClick"></cpn>
+</div>
+<!--zi-->
+<template id="cpn">
+    <div>
+        <button v-for="i in categories" @click="btnClick(i)">{{i.name}}</button>
+    </div>
+</template>
+
+<script src="../src/vue.js"></script>
+<script>
+    const cpn = {
+        template: '#cpn',
+        data() {
+            return {
+                categories: [
+                    {id: 'aaa', name: 'remen'},
+                    {id: 'bbb', name: 'phone'},
+                    {id: 'ccc', name: 'jiadi'},
+                    {id: 'ddd', name: 'wdnmd'},
+                ]
+            }
+        },
+        methods: {
+            btnClick(i) {
+                this.$emit('item-click', i)
+            }
+        }
+
+    }
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '你好'
+        },
+        components: {
+            cpn
+        },
+        methods: {
+            cpnClick(i) {
+                console.log(i);
+            }
+        }
+    })
+</script>
+</body>
+</html>
