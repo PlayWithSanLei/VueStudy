@@ -11,11 +11,12 @@ const User = () => import('../components/User')
 const HomeNews = () => import('../components/HomeNews')
 const HomeMessage = () => import('../components/HomeMessage')
 const Profile = () => import('../components/Profile')
+const Login = () => import('../components/login')
 
 const routes = [
   {
     path: '',
-    redirect: '/home'
+    redirect: '/login'
   },
   {
     path: '/home',
@@ -42,6 +43,10 @@ const routes = [
   {
     path: '/profile',
     component: Profile
+  },
+  {
+    path: '/login',
+    component: Login
   }
 ]
 const router = new VueRouter({

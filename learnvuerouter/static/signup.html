@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form-item label="账户" prop="username">
+      <el-input type="text" v-model="ruleForm.username"></el-input>
+    </el-form-item>
+    <el-form-item label="密码" prop="password">
+      <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+    </el-form-item>
+    <el-form-item label="确认密码" prop="repassword">
+      <el-input type="password" v-model="ruleForm.repassword" autocomplete="off"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+      <el-button @click="resetForm('ruleForm')">重置</el-button>
+    </el-form-item>
+  </el-form>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      var checkusername = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('账户不能为空'));
+        } else if (value.length < 6) {
+          callback(new Error('账户必须大于6位字符'));
+        } else {
+          callback();
+        }
+      };
+      var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.ruleForm.checkPass !== '') {
+            this.$refs.ruleForm.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.ruleForm.password) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
+      return {
+        info: '',
+        ruleForm: {
+          password: '',
+          repassword: '',
+          username: ''
+        },
+        rules: {
+          password: [
+            {validator: validatePass, trigger: 'blur'}
+          ],
+          repassword: [
+            {validator: validatePass2, trigger: 'blur'}
+          ],
+          username: [
+            {validator: checkusername, trigger: 'blur'}
+          ]
+        }
+      };
+    },
+    methods: {
+      submitForm(formName) {
+        axios({
+          method: 'post',
+          url: 'http://192.168.1.122:8080/signup',
+          data: {
+            username: this.ruleForm.username,
+            password: this.ruleForm.password,
+            repassword: this.ruleForm.repassword
+          },
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        })
+        .then((res) => {console.log(res)})
+
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert(this.info);
+          } else {
+            alert('WDNMD');
+            return false;
+          }
+        });
+      },
+
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+    }
+  })
+</script>
+</html>
