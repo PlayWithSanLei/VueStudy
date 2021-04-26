@@ -9,14 +9,15 @@
       <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
         <!--        用户名-->
         <el-form-item prop="username">
-          <el-input prefix-icon="el-icon-user" v-model="loginForm.username" ></el-input>
+          <el-input prefix-icon="el-icon-user" v-model="loginForm.username" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <!--        密码-->
         <el-form-item prop="password">
-          <el-input prefix-icon="el-icon-lock" v-model="loginForm.password" type="password"></el-input>
+          <el-input prefix-icon="el-icon-lock" v-model="loginForm.password" type="password" placeholder="请输入密码"></el-input>
         </el-form-item>
         <!--        按钮区域-->
         <el-form-item class="btns">
+          <el-button type="primary" @click="routeSignup">注册</el-button>
           <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetloginForm">重置</el-button>
         </el-form-item>
@@ -57,11 +58,16 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if(!valid) return;
         const {data: res} = await this.$http.post('login', this.loginForm)
-        console.log(res.code)
-        if(res.code !== 1000) return alert('登录失败！')
-        else alert('登录成功')
-
+        console.log(res)
+        if(res.meta.status !== 200) return this.$message.error('用户名或密码错误!')  // 到时候记得修改这里!!!!
+        this.$message.success('登录成功!')
+        // 将登录成功之后的token,保存到客户端的sessionStorage中
+        window.sessionStorage.setItem('token', res.data.token)
+        this.$router.replace('/home')
       })
+    },
+    routeSignup() {
+      this.$router.replace('/signup')
     }
   }
 }
