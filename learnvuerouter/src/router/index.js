@@ -6,14 +6,10 @@ import Vue from 'vue'
 
 Vue.use(VueRouter)
 const Home = () => import('../components/Home')
-const About = () => import('../components/About')
-const User = () => import('../components/User')
-const HomeNews = () => import('../components/HomeNews')
-const HomeMessage = () => import('../components/HomeMessage')
-const Profile = () => import('../components/Profile')
 const Login = () => import('../components/login')
 const Signup = () => import('../components/signup')
-const Welcome = () => import('../components/welcom')
+const Welcome = () => import('../components/welcome')
+const Users = () => import('../components/user/users')
 
 const routes = [
   {
@@ -30,22 +26,10 @@ const routes = [
         component: Welcome
       },
       {
-        path: 'message',
-        component: HomeMessage
+        path: '/users',
+        component: Users
       }
     ]
-  },
-  {
-    path: '/about',
-    component: About
-  },
-  {
-    path: '/user/:userId',
-    component: User
-  },
-  {
-    path: '/profile',
-    component: Profile
   },
   {
     path: '/login',

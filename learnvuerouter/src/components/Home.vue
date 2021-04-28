@@ -17,7 +17,7 @@
             :style="isCollapsed? 'margin-left: 25px' : 'margin-left:90px'">|||</span></div>
           <!--        侧边栏菜单区域-->
           <el-menu background-color="#333744" text-color="#fff" active-text-color="#409eff" :unique-opened="true"
-                   :collapse="isCollapsed" :collapse-transition="false">
+                   :collapse="isCollapsed" :collapse-transition="false" router :default-active="activePath">
             <!--          一级菜单-->
             <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
               <!--            一级菜单的模板区-->
@@ -28,7 +28,7 @@
                 <span>{{ item.authName }}</span>
               </template>
               <!--            二级菜单-->
-              <el-menu-item :index="subitem.id + ''" v-for="subitem in item.children" :key="subitem.id">
+              <el-menu-item :index="'/' + subitem.path" v-for="subitem in item.children" :key="subitem.id" @click="saveNavState('/'+subitem.path)">
                 <template slot="title">
                   <!--              图标-->
                   <i class="el-icon-menu"></i>
@@ -51,6 +51,7 @@
 export default {
   data() {
     return {
+      activePath: '',
       menulist: [],
       iconsObj: {
         125: 'el-icon-user-solid',
@@ -64,6 +65,7 @@ export default {
   },
   created() {
     this.getMenuList()
+    this.activePath = window.sessionStorage.getItem('activePath')
   },
   name: "Home",
   methods: {
@@ -81,6 +83,10 @@ export default {
     },
     toggleCollapse() {
       this.isCollapsed = !this.isCollapsed
+    },
+    saveNavState(activePath) {
+      window.sessionStorage.setItem('activePath', activePath)
+      this.activePath = activePath
     }
   }
 }
